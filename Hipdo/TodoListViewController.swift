@@ -10,10 +10,12 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["Apple", "Orange", "Banana"]
+    var itemArray = ["Apple", "Orange", "Banana"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
     }
     
@@ -55,7 +57,42 @@ class TodoListViewController: UITableViewController {
         
         
     }
-
+    
+    //SECTION - Add New Items Section
+    
+    //User presses add+ button
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        //This has to be created so all parts of the func can access it
+        var textField = UITextField()
+        
+        //This creates a constant called alert that sets the details for the new alert panel
+        let alert = UIAlertController(title: "Add New Todo", message: "", preferredStyle: .alert)
+        
+        //This creates a constant called action that sets the details for the button that is placed to complete the alert constant above
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            
+            //What will happen once the user clicks the add item button on our UI alert
+            print(textField.text!)
+            print("Success")
+            
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        //This adds a text field the user can input and outputs whatever they put in to text
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        //This adds the action to our alert UI
+        alert.addAction(action)
+        
+        //This will actually present our alert to the user
+        present(alert, animated: true, completion: nil)
+    }
+    
 
 }
 
