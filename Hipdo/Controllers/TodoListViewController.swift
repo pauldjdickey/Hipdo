@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
-    var itemArray = ["Apple", "Orange", "Banana"]
+    var itemArray = [Item]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        
+        loadItems()
     }
     
     //TableView DataSource Methods
@@ -33,9 +38,13 @@ class TodoListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
         //This line applies everything in the itemArray we created to the cell based on the location the cell is at (.row)
-        cell.textLabel?.text = itemArray[indexPath.row]
+        cell.textLabel?.text = itemArray[indexPath.row].title
         
-        
+        if itemArray[indexPath.row].done == true {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
         //This returns the cell as an output, which in this case will create a cell with the text label that is what is in our array
         return cell
     }
@@ -43,14 +52,14 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //This prints the corresponding item of the array per the row we selected
         //print(itemArray[indexPath.row])
-                
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-
-        }
         
+        //This changes the property of done to the opposite when we select and tap on the row using the "!"
+        
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
+        
+        saveItems()
         
         //The following line makes it so selecting a row does not keep it highlighted, and only flashes it
         tableView.deselectRow(at: indexPath, animated: true)
@@ -58,7 +67,7 @@ class TodoListViewController: UITableViewController {
         
     }
     
-    //SECTION - Add New Items Section
+    // MARK: - Add New Items Section
     
     //User presses add+ button
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -76,7 +85,16 @@ class TodoListViewController: UITableViewController {
             print(textField.text!)
             print("Success")
             
-            self.itemArray.append(textField.text!)
+            //This lets us access our AppDelegate as an object, tap into the persistentcontainer property
+            
+            //Sets the input from user in popup
+            let newItem = Item(context: self.context)
+            newItem.title = textField.text!
+            newItem.done = false
+            self.itemArray.append(newItem)
+            self.saveItems()
+
+            
             self.tableView.reloadData()
         }
         
@@ -91,6 +109,30 @@ class TodoListViewController: UITableViewController {
         
         //This will actually present our alert to the user
         present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Manipulation Methods
+    
+    //Saves coredata
+    func saveItems() {
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    //Loads coredata
+    func loadItems() {
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
     }
     
 
