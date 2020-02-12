@@ -25,7 +25,7 @@ class TodoListViewController: UITableViewController {
         loadItems()
     }
     
-    //TableView DataSource Methods
+    // MARK: - TableView DataSource Methods
     
     //How many rows of tables we need to create
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,7 +49,7 @@ class TodoListViewController: UITableViewController {
         //This returns the cell as an output, which in this case will create a cell with the text label that is what is in our array
         return cell
     }
-    //Tableview Delegate Methods - This function does stuff whenever we tap on a row
+    // MARK: - Tableview Delegate Methods - This function does stuff whenever we tap on a row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //This prints the corresponding item of the array per the row we selected
         //print(itemArray[indexPath.row])
@@ -112,7 +112,7 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Manipulation Methods
+    // MARK: - Data Manipulation Methods
     
     //Saves coredata
     func saveItems() {

@@ -14,6 +14,7 @@
 		2D2F70E723EA3D620098F84B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D2F70E623EA3D620098F84B /* Assets.xcassets */; };
 		2D2F70EA23EA3D620098F84B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D2F70E823EA3D620098F84B /* LaunchScreen.storyboard */; };
 		2D32D6C523ECD67E0078A566 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D32D6C323ECD67E0078A566 /* DataModel.xcdatamodeld */; };
+		2DA47EA323F37650002C79F0 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA47EA223F37650002C79F0 /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		2D2F70E923EA3D620098F84B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D2F70EB23EA3D620098F84B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D32D6C423ECD67E0078A566 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2DA47EA223F37650002C79F0 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		2D32D6C023ECCE110078A566 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2DA47EA223F37650002C79F0 /* CategoryViewController.swift */,
 				2D2F70E123EA3D610098F84B /* TodoListViewController.swift */,
 			);
 			path = Controllers;
@@ -173,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DA47EA323F37650002C79F0 /* CategoryViewController.swift in Sources */,
 				2D32D6C523ECD67E0078A566 /* DataModel.xcdatamodeld in Sources */,
 				2D2F70E223EA3D610098F84B /* TodoListViewController.swift in Sources */,
 				2D2F70DE23EA3D610098F84B /* AppDelegate.swift in Sources */,
